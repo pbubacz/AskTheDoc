@@ -1,0 +1,7 @@
+streamlit
+unstructured
+tiktoken
+openai
+azure.core.credentials
+azure.ai.documentintelligence
+PyPDF2
