@@ -79,16 +79,29 @@ def handle_pdf_remotly(uploaded_file):
 def extract_text(uploaded_file, use_local_pdf=False) -> str:
     try:
         file_type = uploaded_file.type
-        if file_type in ['text/plain', 'application/octet-stream']:
-            return handle_plain_or_octet_stream(uploaded_file)
-        if file_type == 'application/pdf':
-            if use_local_pdf:                
-                return handle_pdf_locally(uploaded_file)
-            else:
-                return handle_pdf_remotly(uploaded_file)
-        return handle_other(uploaded_file)
+        file_handlers = {
+            'text/plain': handle_plain_or_octet_stream,
+            'application/octet-stream': handle_plain_or_octet_stream,
+            'application/pdf': handle_pdf_locally if use_local_pdf else handle_pdf_remotly,
+        }
+        handler = file_handlers.get(file_type, handle_other)
+        return handler(uploaded_file)
     except Exception as e:
-        return handle_error(e, "Error extracting text:")
+        handle_error(e, "Error extracting text:")
+
+# def extract_text(uploaded_file, use_local_pdf=False) -> str:
+#     try:
+#         file_type = uploaded_file.type
+#         if file_type in ['text/plain', 'application/octet-stream']:
+#             return handle_plain_or_octet_stream(uploaded_file)
+#         if file_type == 'application/pdf':
+#             if use_local_pdf:                
+#                 return handle_pdf_locally(uploaded_file)
+#             else:
+#                 return handle_pdf_remotly(uploaded_file)
+#         return handle_other(uploaded_file)
+#     except Exception as e:
+#         return handle_error(e, "Error extracting text:")
 
 def num_tokens_from_string(string: str) -> int:
     return len(encoding.encode(string))
@@ -141,3 +154,9 @@ def clean_text(text):
         text = re.sub(pattern, replacement, text)
     text = text.replace('<table>', '\n<table>')
     return text
+
+def check_user_prompt(user_prompt):
+    return "{question}" in user_prompt and "{document}" in user_prompt
+
+def get_prompt_from_template(user_prompt_template, question, document):
+    return user_prompt_template.replace("{question}", question).replace("{document}", document)

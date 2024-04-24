@@ -1,5 +1,5 @@
 import streamlit as st
-from local_lib import extract_text, num_tokens_from_string, get_ai_response, get_improved_prompts
+from local_lib import extract_text, num_tokens_from_string, get_ai_response, get_improved_prompts, check_user_prompt, get_prompt_from_template
 
 def initialize_session_state():
     default_values = {
@@ -8,6 +8,7 @@ def initialize_session_state():
 Your language of communication is specialized and adapted to the needs of other scientists in this field. 
 Please provide a detailed explanation of the question using only provided document as a reference.
 Provide your response in Polish.""",
+        'user_prompt_template': "# QUESTION:\n{question}\n# DOCUMENT:\n{document}",
         'main_prompt': "",
         'response': "",
         'question': "",
@@ -30,6 +31,7 @@ def sidebar():
         )
         st.session_state['use_local_pdf'] = st.checkbox("Use local PDF converter", value=st.session_state['use_local_pdf'])
         st.session_state['system_prompt'] = st.text_area("System prompt", value=st.session_state['system_prompt'], height=350)
+        st.session_state['user_prompt_template'] = st.text_area("User prompt template", value=st.session_state['user_prompt_template'], height=150)
         st.session_state['temperature'] = st.slider("Temperature", min_value=0.0, max_value=1.0, value=st.session_state['temperature'], step=0.1)
 
         
@@ -52,19 +54,22 @@ def display_document():
             st.write("Token number:", num_tokens_from_string(texts))
 
 def ask_question():
-    st.session_state['question'] = st.text_area("Ask your question", height=200)
-    col1, col2 = st.columns(2)
+    st.session_state['question'] = st.text_area("Ask your question", height=200)    
+    if st.session_state['question']!="":
+        col1, col2 = st.columns(2)
+        with col1:
+            if st.button("Send to AI", key="ask_button"):
+                if not check_user_prompt(st.session_state['user_prompt_template']):
+                    st.error("User prompt template must contain {question} and {document} placeholders.")
+                else:
+                    with st.spinner("Sending to AI ⏳"):
+                        prompt = get_prompt_from_template(st.session_state['user_prompt_template'],st.session_state['question'],st.session_state['document'])
+                        st.session_state['response'] = get_ai_response(st.session_state['system_prompt'], prompt, st.session_state['temperature'], st.session_state['model'])
 
-    with col1:
-        if st.button("Send to AI", key="ask_button"):
-            with st.spinner("Sending to AI ⏳"):
-                prompt = f"# QUESTION:\n{st.session_state['question']}\n# DOCUMENT:\n{st.session_state['document']}"
-                st.session_state['response'] = get_ai_response(st.session_state['system_prompt'], prompt, st.session_state['temperature'], st.session_state['model'])
-
-    with col2:
-        if st.button("Propose better prompt", key="improve_button"):
-            with st.spinner("Sending to AI ⏳"):            
-                st.session_state['response'] = get_improved_prompts(st.session_state['question'], st.session_state['temperature'], st.session_state['model'])
+        with col2:
+            if st.button("Propose better prompt", key="improve_button"):
+                with st.spinner("Sending to AI ⏳"):            
+                    st.session_state['response'] = get_improved_prompts(st.session_state['question'], st.session_state['temperature'], st.session_state['model'])
 
 def display_response():
     if st.session_state['response']:
