@@ -136,6 +136,7 @@
         ],
         "properties": {
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
+          "appCommandLine": "python -m streamlit run app.py --server.port 8000 --server.address 0.0.0.0" ,
           "siteConfig": {
             "linuxFxVersion": "[parameters('linuxFxVersion')]",
             "appSettings": [
@@ -190,18 +191,6 @@
               }
             }
           ]
-      },
-      {
-        "type": "Microsoft.Web/sites/config",
-        "apiVersion": "2021-03-01",
-        "name": "[concat(parameters('webAppName'), '/web')]",
-        "location": "[parameters('location')]",
-        "dependsOn": [
-            "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
-        ],
-        "properties": {
-            "appCommandLine": "python -m streamlit run app.py --server.port 8000 --server.address 0.0.0.0"    
-        }
       }
     ]
   }

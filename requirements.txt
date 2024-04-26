@@ -2,6 +2,7 @@ streamlit
 unstructured
 tiktoken
 openai
-azure.core.credentials
+azure-core
 azure.ai.documentintelligence
 PyPDF2
+python-dotenv
