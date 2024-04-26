@@ -1,0 +1,48 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "webAppName": {
+            "value": "AI researcher" 
+        },
+        "location": {
+            "value": "Sweden Central"
+        },
+        "sku": {
+            "value": "B1"
+        },
+        "linuxFxVersion": {
+            "value": "PYTHON|3.10"
+        },
+        "repoUrl": {
+            "value": "https://github.com/pbubacz/AskTheDoc.git"
+        },
+        "repoBranch": {
+            "value": "main"
+        },
+        "AZURE_OPENAI_ENDPOINT": {
+            "value": "" 
+        },
+        "AZURE_OPENAI_API_KEY": {
+            "value": "" 
+        },
+        "AZURE_OPENAI_MODEL_GPT35": {
+            "value": "gpt-35-turbo" 
+        },
+        "AZURE_OPENAI_MODEL_GPT4T": {
+            "value": "gpt-4-turbo" 
+        },
+        "AZURE_OPENAI_MODEL_GPT4": {
+            "value": "gpt-4" 
+        },
+        "AZURE_OPENAI_API_VERSION": {
+            "value": "2024-02-01" 
+        },
+        "DOCUMENTINTELLIGENCE_ENDPOINT": {
+            "value": "" 
+        },
+        "DOCUMENTINTELLIGENCE_API_KEY": {
+            "value": "" 
+        }
+    }
+}
