@@ -58,6 +58,54 @@
         "metadata": {
           "description": "Git Repo branch to deploy"
         }
+      },
+      "AZURE_OPENAI_ENDPOINT": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure OpenAI Endpoint"
+        }
+      },
+      "AZURE_OPENAI_API_KEY": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure OpenAI API Key"
+        }
+      },
+      "AZURE_OPENAI_MODEL_GPT35": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure OpenAI Model GPT-3.5"
+        }
+      },
+      "AZURE_OPENAI_MODEL_GPT4T": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure OpenAI Model GPT-4T"
+        }
+      },
+      "AZURE_OPENAI_MODEL_GPT4": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure OpenAI Model GPT-4"
+        }
+      },
+      "AZURE_OPENAI_API_VERSION": {
+        "type": "string",
+        "metadata": {
+          "description": "Azure OpenAI API Version"
+        }
+      },
+      "DOCUMENTINTELLIGENCE_ENDPOINT": {
+        "type": "string",
+        "metadata": {
+          "description": "Document Intelligence Endpoint"
+        }
+      },
+      "DOCUMENTINTELLIGENCE_API_KEY": {
+        "type": "string",
+        "metadata": {
+          "description": "Document Intelligence API Key"
+        }
       }
     },
     "variables": {
@@ -118,7 +166,15 @@
             "[resourceId('Microsoft.Web/sites', parameters('webAppName'))]"
         ],
         "properties": {
-            "appCommandLine": "python -m streamlit run app.py --server.port 8000 --server.address 0.0.0.0"
+            "appCommandLine": "python -m streamlit run app.py --server.port 8000 --server.address 0.0.0.0",
+            "AZURE_OPENAI_ENDPOINT": "[parameters('AZURE_OPENAI_ENDPOINT')]",
+            "AZURE_OPENAI_API_KEY": "[parameters('AZURE_OPENAI_API_KEY')]",
+            "AZURE_OPENAI_MODEL_GPT35": "[parameters('AZURE_OPENAI_MODEL_GPT35')]",
+            "AZURE_OPENAI_MODEL_GPT4T": "[parameters('AZURE_OPENAI_MODEL_GPT4T')]",
+            "AZURE_OPENAI_MODEL_GPT4": "[parameters('AZURE_OPENAI_MODEL_GPT4')]",
+            "AZURE_OPENAI_API_VERSION": "[parameters('AZURE_OPENAI_API_VERSION')]",
+            "DOCUMENTINTELLIGENCE_ENDPOINT": "[parameters('DOCUMENTINTELLIGENCE_ENDPOINT')]",
+            "DOCUMENTINTELLIGENCE_API_KEY": "[parameters('DOCUMENTINTELLIGENCE_API_KEY')]"            
         }
     }
     ]
