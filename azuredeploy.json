@@ -140,7 +140,7 @@
         ],
         "properties": {
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
-          "appCommandLine": "run.sh",
+          "appCommandLine": "python -m streamlit run st-app.py --server.port 8000 --server.address 0.0.0.0",
           "siteConfig": {
             "linuxFxVersion": "[parameters('linuxFxVersion')]",
             "appSettings": [
