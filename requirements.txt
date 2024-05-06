@@ -1,5 +1,6 @@
 streamlit
 unstructured
+unstructured[docx]
 tiktoken
 openai
 azure-core

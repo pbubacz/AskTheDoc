@@ -1,5 +1,7 @@
 # AskTheDoc
 
+Tha aplicattion allows you to ask questions about the documents. 
+Curently it supports only DOCX and PDF files.
 
 # Deployment
 

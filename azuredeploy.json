@@ -139,8 +139,7 @@
           "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]"
         ],
         "properties": {
-          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
-          "appCommandLine": "python -m streamlit run st-app.py --server.port 8000 --server.address 0.0.0.0",
+          "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",          
           "siteConfig": {
             "linuxFxVersion": "[parameters('linuxFxVersion')]",
             "appSettings": [
@@ -167,17 +166,18 @@
                         {
                             "name": "AZURE_OPENAI_API_VERSION",
                             "value": "[parameters('AZURE_OPENAI_API_VERSION')]"
-                        },                        
-                        {
-                            "name": "DOCUMENTINTELLIGENCE_ENDPOINT",
-                            "value": "[parameters('DOCUMENTINTELLIGENCE_ENDPOINT')]"
                         },
                         {
                             "name": "DOCUMENTINTELLIGENCE_API_KEY",
                             "value": "[parameters('DOCUMENTINTELLIGENCE_API_KEY')]"
+                        },
+                        {
+                            "name": "DOCUMENTINTELLIGENCE_ENDPOINT",
+                            "value": "[parameters('DOCUMENTINTELLIGENCE_ENDPOINT')]"
                         }
             ]
-          }
+          },
+          "appCommandLine": "python -m streamlit run st-app.py --server.port 8000 --server.address 0.0.0.0" 
         },
         "resources": [
             {
