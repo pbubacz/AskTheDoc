@@ -66,7 +66,7 @@
         }
       },
       "AZURE_OPENAI_API_KEY": {
-        "type": "string",
+        "type": "securestring",
         "metadata": {
           "description": "Azure OpenAI API Key"
         }
@@ -106,7 +106,7 @@
         }
       },
       "DOCUMENTINTELLIGENCE_API_KEY": {
-        "type": "string",
+        "type": "securestring",
         "metadata": {
           "description": "Document Intelligence API Key"
         }
@@ -140,7 +140,7 @@
         ],
         "properties": {
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
-          "appCommandLine": "python -m streamlit run st-app.py --server.port 8000 --server.address 0.0.0.0",
+          "appCommandLine": "run.sh",
           "siteConfig": {
             "linuxFxVersion": "[parameters('linuxFxVersion')]",
             "appSettings": [
@@ -167,14 +167,14 @@
                         {
                             "name": "AZURE_OPENAI_API_VERSION",
                             "value": "[parameters('AZURE_OPENAI_API_VERSION')]"
+                        },                        
+                        {
+                            "name": "DOCUMENTINTELLIGENCE_ENDPOINT",
+                            "value": "[parameters('DOCUMENTINTELLIGENCE_ENDPOINT')]"
                         },
                         {
                             "name": "DOCUMENTINTELLIGENCE_API_KEY",
                             "value": "[parameters('DOCUMENTINTELLIGENCE_API_KEY')]"
-                        },
-                        {
-                            "name": "DOCUMENTINTELLIGENCE_ENDPOINT",
-                            "value": "[parameters('DOCUMENTINTELLIGENCE_ENDPOINT')]"
                         }
             ]
           }
