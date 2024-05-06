@@ -73,24 +73,28 @@
       },
       "AZURE_OPENAI_MODEL_GPT35": {
         "type": "string",
+        "defaultValue": "gpt-35-turbo",
         "metadata": {
-          "description": "Azure OpenAI Model GPT-3.5"
+          "description": "Azure OpenAI Model GPT-3.5-Turbo"
         }
       },
       "AZURE_OPENAI_MODEL_GPT4T": {
         "type": "string",
+        "defaultValue": "gpt-4-turbo",
         "metadata": {
-          "description": "Azure OpenAI Model GPT-4T"
+          "description": "Azure OpenAI Model GPT-4-Turbo"
         }
       },
       "AZURE_OPENAI_MODEL_GPT4": {
-        "type": "string",
+        "type": "string",        
+        "defaultValue": "gpt-4",
         "metadata": {
           "description": "Azure OpenAI Model GPT-4"
         }
       },
       "AZURE_OPENAI_API_VERSION": {
-        "type": "string",
+        "type": "string",        
+        "defaultValue": "2024-02-01",
         "metadata": {
           "description": "Azure OpenAI API Version"
         }
@@ -136,7 +140,7 @@
         ],
         "properties": {
           "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanPortalName'))]",
-          "appCommandLine": "python -m streamlit run app.py --server.port 8000 --server.address 0.0.0.0" ,
+          "appCommandLine": "run.sh",
           "siteConfig": {
             "linuxFxVersion": "[parameters('linuxFxVersion')]",
             "appSettings": [
